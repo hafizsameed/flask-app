@@ -1,8 +1,9 @@
-from flask import Flask,jsonify 
-
+from flask import Flask,json 
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def helloWorld():
-    return jsonify(name="hafizsameed")
+    return json_response(name="sameed")
 

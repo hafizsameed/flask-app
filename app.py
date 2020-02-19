@@ -13,7 +13,7 @@ def predict():
     filename = "finalized_model.sav"
     loaded_model = pickle.load(open(filename,'rb'))
     predicted_data = loaded_model.predict(data)
-    return json_response({response:predict_data})
+    return json_response({response:predicted_data})
 
 def json_response(payload, status=200):
  return (json.dumps(payload), status, {'content-type': 'application/json'})

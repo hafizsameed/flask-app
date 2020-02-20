@@ -1,7 +1,10 @@
 from flask import Flask,json,request 
 from flask_cors import CORS
+import numpy as np
+
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route('/')
 def start():
@@ -10,14 +13,15 @@ def start():
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
+    arr = np.array(data)
     filename = "finalized_model.sav"
     loaded_model = pickle.load(open(filename,'rb'))
-    predicted_data = loaded_model.predict(data)
+    predicted_data = loaded_model.predict(arr)
     return json_response({response:predicted_data})
 
 def json_response(payload, status=200):
  return (json.dumps(payload), status, {'content-type': 'application/json'})
 
 
- if __name__ == '__main__':
-    app.run()
+#  if __name__ == '__main__':
+#     app.run()

@@ -14,8 +14,6 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4,  random_state=1) 
 reg = linear_model.LinearRegression() 
 reg.fit(X_train, y_train) 
-print('Coefficients: \n', reg.coef_)
-print("score: ",reg.score(X_test,y_test)) 
 
 @app.route('/')
 def start():
@@ -23,12 +21,12 @@ def start():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    print("api started")
+    # print("api started")
     data = request.get_json()
-    print(data,"data")
+    # print(data,"data")
     arr = np.array(data)
     arr = arr.reshape(1,-1)
-    print(arr,"arr")
+    # print(arr,"arr")
     # print(loaded_model)
     predicted_data = reg.predict(arr)
     print(predicted_data[0],"predicted data")
@@ -37,6 +35,3 @@ def predict():
 def json_response(payload, status=200):
  return (json.dumps(payload), status, {'content-type': 'application/json'})
 
-
- if __name__ == '__main__':
-    app.run(debug=True)
